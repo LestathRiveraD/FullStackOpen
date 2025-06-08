@@ -1,20 +1,20 @@
 import { useState } from 'react'
 
 const SectionTitle = ({name}) => <h1>{name}</h1>
-
 const Button = ({onClick, name}) => <button onClick={onClick}>{name}</button>
+const StatisticsLine = (props) => <p>{props.name} {props.value}</p>
 
 const Statistics = (props) => {
-  console.log("========Statistics component========")
-  console.log("Statistics. Received feedback: ", props.feedback)
-  console.log("Good: ", props.feedback.good)
-  console.log("Neutral: ", props.feedback.neutral)
-  console.log("Bad: ", props.feedback.bad)
+  // console.log("========Statistics component========")
+  // console.log("Statistics. Received feedback: ", props.feedback)
+  // console.log("Good: ", props.feedback.good)
+  // console.log("Neutral: ", props.feedback.neutral)
+  // console.log("Bad: ", props.feedback.bad)
 
   const good = props.feedback.good
   const neutral = props.feedback.neutral
   const bad = props.feedback.bad
-  const total = good + neutral + bad
+  let total = good + neutral + bad
 
   if (total === 0)
   {
@@ -26,19 +26,46 @@ const Statistics = (props) => {
     )
   }
 
-  let average
-  let positive
-  average = (good - bad) / total
-  positive = (good / total) * 100
+  let average = (good - bad) / total
+  let positive = ((good / total) * 100) + "%"
+  
   return (
     <div>
       <SectionTitle name={"statistics"}/>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {total}</p>
-      <p>average {average}</p>
-      <p>positive {positive}%</p>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <StatisticsLine name={"good"} value={good}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine name={"neutral"} value={neutral}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine name={"bad"} value={bad}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine name={"total"} value={total}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine name={"average"} value={average}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine name={"positive"} value={positive}/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
