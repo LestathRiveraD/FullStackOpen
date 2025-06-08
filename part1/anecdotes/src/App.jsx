@@ -1,5 +1,23 @@
 import { useState } from 'react'
 
+function getIndexOfMax(arr) {
+     if (arr.length === 0) {
+       return -1; // Handle empty array case
+     }
+     return arr.reduce((maxIndex, currentValue, currentIndex, array) =>
+       currentValue > array[maxIndex] ? currentIndex : maxIndex, 0
+     );
+}
+
+const DisplayNote = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <p>{props.note}</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -11,21 +29,32 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
-  const [selected, setSelected] = useState(0)
 
-  const handleSelected = () => {
-    let i = Math.floor(Math.random() * (anecdotes.length));
-    console.log("Randomnly generated index: ", i)
-    setSelected(i)
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))
+  const [best, setBest] = useState(0)
+
+  const handleSelected = () => setSelected(Math.floor(Math.random() * (anecdotes.length)))
+  
+  const handleVote = () => {
+    let newVotes = [...votes]
+    newVotes[selected]++
+    setVotes(newVotes)
+
+    let mostVoted = getIndexOfMax([...newVotes])
+    setBest(mostVoted)
   }
 
   return (
     <div>
-      {anecdotes[selected]}
+      <DisplayNote title={"Note of the day"} note={anecdotes[selected]} />
       <div>
-        <button onClick={handleSelected}>Random quote</button>
+        <button onClick={handleVote}>Vote</button>
+        <button onClick={handleSelected}>Next quote</button>
       </div>
+
+      <DisplayNote title={"Anecdote with most votes"} note={anecdotes[best]} />
+      <p>Votes: {votes[best]}</p>
     </div>
   )
 }
