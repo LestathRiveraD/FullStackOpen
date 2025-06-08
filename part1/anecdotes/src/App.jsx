@@ -14,6 +14,7 @@ const DisplayNote = (props) => {
     <div>
       <h1>{props.title}</h1>
       <p>{props.note}</p>
+      <p>Votes: {props.votes}</p>
     </div>
   )
 }
@@ -47,14 +48,13 @@ const App = () => {
 
   return (
     <div>
-      <DisplayNote title={"Note of the day"} note={anecdotes[selected]} />
+      <DisplayNote title={"Note of the day"} note={anecdotes[selected]} votes={votes[selected]}/>
       <div>
         <button onClick={handleVote}>Vote</button>
         <button onClick={handleSelected}>Next quote</button>
       </div>
 
-      <DisplayNote title={"Anecdote with most votes"} note={anecdotes[best]} />
-      <p>Votes: {votes[best]}</p>
+      <DisplayNote title={"Anecdote with most votes"} note={anecdotes[best]} votes={votes[best]}/>
     </div>
   )
 }
