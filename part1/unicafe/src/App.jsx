@@ -15,22 +15,22 @@ const Statistics = (props) => {
   const neutral = props.feedback.neutral
   const bad = props.feedback.bad
   const total = good + neutral + bad
-  let average
-  let positive
 
   if (total === 0)
   {
-    average = 0
-    positive = 0
+    return (
+      <div>
+        <SectionTitle name={"statistics"}/>
+        <p>No feedback given</p>
+      </div>
+    )
   }
-  else
-  {
-    average = (good - bad) / total
-    positive = (good / total) * 100
-  }
-  
-  return (
 
+  let average
+  let positive
+  average = (good - bad) / total
+  positive = (good / total) * 100
+  return (
     <div>
       <SectionTitle name={"statistics"}/>
       <p>good {good}</p>
