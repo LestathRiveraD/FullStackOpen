@@ -9,7 +9,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
-  const [filtered, setFiltered] = useState(persons)
+  const [filter, setFilter] = useState('')
 
   // Fetch data
   useEffect(() => {
@@ -17,19 +17,13 @@ const App = () => {
       .get('http://localhost:3001/persons')
       .then(response => {
           setPersons(response.data)
-          setFiltered(response.data)
       })
   }, [])
 
   // Callback funcions
-  const handleNewName = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNewPhone = (event) => {
-    setNewPhone(event.target.value)
-  }
-
+  const handleNewName = event => setNewName(event.target.value)
+  const handleNewPhone = event => setNewPhone(event.target.value)
+  const handleFilter = (event) => setFilter(event.target.value.toLowerCase())
   const addNewNote = (event) => {
     event.preventDefault()
     const a = persons.find((person) => {
@@ -39,26 +33,10 @@ const App = () => {
     if (a)
       alert(`${newName} is already in phonebook`)
     else
-    {
       setPersons(persons.concat({name: newName, number: newPhone}))
-      setFiltered(persons.concat({name: newName, number: newPhone}))
-    }
-  }
-  
-  const handleFilter = (event) => {
-    let filt = event.target.value
-
-    if (filt === '')
-    {
-      setFiltered(persons)
-      return
-    }
-    
-    const newPersons = persons.filter((person) => person.name.toLowerCase().includes(filt.toLowerCase()))
-    setFiltered(newPersons)
   }
 
-  {console.log("This goes after effect")}
+  // UI
   return (
     <div>
       <h2>Phonebook</h2>
@@ -68,7 +46,7 @@ const App = () => {
       <Add addNewNote={addNewNote} newName={newName} handleNewName={handleNewName} newPhone={newPhone} handleNewPhone={handleNewPhone}/>
 
       <h2>Numbers</h2>
-      <Numbers filtered={filtered}/>
+      <Numbers persons={persons} filter={filter} />
     </div>
   )
 }

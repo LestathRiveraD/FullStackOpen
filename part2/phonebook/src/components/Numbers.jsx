@@ -1,10 +1,19 @@
-const Numbers = ({filtered}) => {
-    
-    return (
+const Numbers = ({persons, filter}) => {
+
+    if (filter === '')
+        return  (
+            <div>
+                {persons.map((person) => {
+                    return <div key={person.name}>{person.name} {person.number}</div>
+                })}
+            </div>
+        )
+
+    return  (
         <div>
-            {filtered.map((person) => {
-                let name = person.name
-                return <p key={name}>{name} {person.number}</p>
+            {persons.map((person) => {
+                if (person.name.toLowerCase().includes(filter))
+                    return <div key={person.name}>{person.name} {person.number}</div>
             })}
         </div>
     )
