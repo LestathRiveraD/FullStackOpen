@@ -1,5 +1,4 @@
 const Numbers = ({persons, filter}) => {
-
     if (filter === '')
         return  (
             <div>

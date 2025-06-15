@@ -4,6 +4,10 @@ import Add from './components/Add'
 import Numbers from './components/Numbers'
 import axios from 'axios'
 
+import phonebook from './services/phonebook'
+
+let render = 0
+
 const App = () => {
   // State of the application
   const [persons, setPersons] = useState([])
@@ -13,11 +17,8 @@ const App = () => {
 
   // Fetch data
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-          setPersons(response.data)
-      })
+    const response = phonebook.getAll()
+    response.then((res) => setPersons(res))
   }, [])
 
   // Callback funcions
