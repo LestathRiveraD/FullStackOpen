@@ -41,10 +41,15 @@ const App = () => {
     })
   }
   const deleteNumber = (id) => {
-    phonebook.deleteEntry(id).then((res) => {
-      const newPersons = persons.filter(person => person.id !== id)
-      setPersons(newPersons)
-    })
+    const personDelete = persons.find(person => person.id === id)
+
+    if (window.confirm(`Delete ${personDelete.name}?`))
+    {
+      phonebook.deleteEntry(id).then((res) => {
+        const newPersons = persons.filter(person => person.id !== id)
+        setPersons(newPersons)
+      })
+    }
   }
 
   // UI
