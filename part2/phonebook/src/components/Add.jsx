@@ -1,7 +1,7 @@
 const Add = (props) => 
             <form onSubmit={props.addNewNumber}>
-                <div>Nombre: <input value={props.newName} onChange={props.handleNewName} /></div>
-                <div>Número: <input value={props.newPhone} onChange={props.handleNewPhone} /></div>        
+                <div>Name: <input value={props.newName} onChange={props.handleNewName} /></div>
+                <div>Number: <input value={props.newPhone} onChange={props.handleNewPhone} /></div>        
                 <div><button type="submit">add</button></div>
             </form>
 

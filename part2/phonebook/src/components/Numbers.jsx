@@ -1,19 +1,24 @@
-const Numbers = ({persons, filter}) => {
+const Numbers = ({persons, filter, onClick}) => {
     if (filter === '')
         return  (
             <div>
                 {persons.map((person) => {
-                    return <div key={person.name}>{person.name} {person.number}</div>
+                    return <div key={person.id}>
+                        {person.name} {person.number} <button onClick={() => onClick(person.id)}>Delete</button>
+                    </div>
                 })}
             </div>
         )
 
     return  (
         <div>
-            {persons.map((person) => {
-                if (person.name.toLowerCase().includes(filter))
-                    return <div key={person.name}>{person.name} {person.number}</div>
-            })}
+            {persons.filter((person) => person.name.toLowerCase().includes(filter.toLowerCase()))
+                .map((person) => {
+                    return <div key={person.id}>
+                        {person.name} {person.number} <button onClick={() => onClick(person.id)}>Delete</button>
+                    </div>
+                })
+            }
         </div>
     )
 }

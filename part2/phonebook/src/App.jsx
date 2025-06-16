@@ -36,23 +36,28 @@ const App = () => {
     }
 
     let newEntry = {name: newName, number: newPhone}
-    axios.post('http://localhost:3001/persons', newEntry).then(res => {
-      setPersons(persons.concat(newEntry))
+    phonebook.addEntry(newEntry).then(res => {
+      setPersons(persons.concat({...newEntry, id: res.data.id}))
     })
-
+  }
+  const deleteNumber = (id) => {
+    phonebook.deleteEntry(id).then((res) => {
+      const newPersons = persons.filter(person => person.id !== id)
+      setPersons(newPersons)
+    })
   }
 
   // UI
   return (
     <div>
-      <h2>Libro telefónico</h2>
+      <h2>Phonebook</h2>
       <Filter handleFilter={handleFilter} />
 
-      <h2>Añadir número</h2>
+      <h2>Add number</h2>
       <Add addNewNumber={addNewNumber} newName={newName} handleNewName={handleNewName} newPhone={newPhone} handleNewPhone={handleNewPhone}/>
 
-      <h2>Números</h2>
-      <Numbers persons={persons} filter={filter} />
+      <h2>Numbers</h2>
+      <Numbers persons={persons} filter={filter} onClick={(id) => deleteNumber(id)}/>
     </div>
   )
 }
