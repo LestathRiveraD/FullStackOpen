@@ -6,8 +6,6 @@ import axios from 'axios'
 
 import phonebook from './services/phonebook'
 
-let render = 0
-
 const App = () => {
   // State of the application
   const [persons, setPersons] = useState([])
@@ -27,18 +25,29 @@ const App = () => {
   const handleFilter = (event) => setFilter(event.target.value.toLowerCase())
   const addNewNumber = (event) => {
     event.preventDefault()
-    const a = persons.find(person => person.name === newName)
+    const personFound = persons.find(person => person.name === newName)
 
-    if (a)
+    if (personFound)
     {
-      alert(`${newName} is already in phonebook`)
+      if(!window.confirm(`${personFound.name} is already added to phonebook, replace the old number with a new one?`))
+        return
+
+      let newEntry = {...personFound, number: newPhone}
+
+      phonebook.modifyEntry(newEntry.id, newEntry).then(res => {
+        console.log("Put Successful. Response: ", res)
+        const response = phonebook.getAll()
+        response.then((res) => setPersons(res))
+      })
       return
     }
-
-    let newEntry = {name: newName, number: newPhone}
-    phonebook.addEntry(newEntry).then(res => {
-      setPersons(persons.concat({...newEntry, id: res.data.id}))
-    })
+    else
+    {
+      let newEntry = {name: newName, number: newPhone}
+      phonebook.addEntry(newEntry).then(res => {
+        setPersons(persons.concat({...newEntry, id: res.data.id}))
+      })
+    }
   }
   const deleteNumber = (id) => {
     const personDelete = persons.find(person => person.id === id)
