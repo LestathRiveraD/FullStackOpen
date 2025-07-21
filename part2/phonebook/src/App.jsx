@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import Filter from './components/Filter'
 import Add from './components/Add'
 import Numbers from './components/Numbers'
-import axios from 'axios'
-
 import phonebook from './services/phonebook'
+import Notification from './components/Notification'
 
 const App = () => {
   // State of the application
@@ -12,6 +11,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
 
   // Fetch data
   useEffect(() => {
@@ -34,18 +35,36 @@ const App = () => {
 
       let newEntry = {...personFound, number: newPhone}
 
+      console.log("Helloooo")
       phonebook.modifyEntry(newEntry.id, newEntry).then(res => {
         console.log("Put Successful. Response: ", res)
         const response = phonebook.getAll()
         response.then((res) => setPersons(res))
+        .then(() => {
+          setMessage(`${personFound.name}'s phonenumber modified to ${newPhone}`)
+        })
       })
-      return
+      .catch(error => {
+        console.log("Found")
+        setError(true)
+        setMessage(`Error. ${personFound.name} was already removed from phonebook`)
+        setTimeout(() => {
+          setError(null)
+          setMessage(null)
+        }, 5000)
+      })
     }
     else
     {
       let newEntry = {name: newName, number: newPhone}
       phonebook.addEntry(newEntry).then(res => {
         setPersons(persons.concat({...newEntry, id: res.data.id}))
+      })
+      .then(() => {
+        setMessage(`${newName} added successfully!`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       })
     }
   }
@@ -64,6 +83,8 @@ const App = () => {
   // UI
   return (
     <div>
+      <Notification message={message} error={error} />
+
       <h2>Phonebook</h2>
       <Filter handleFilter={handleFilter} />
 
