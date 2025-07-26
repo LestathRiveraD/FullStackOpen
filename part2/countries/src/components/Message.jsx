@@ -1,38 +1,33 @@
-function Message ({filter, countries}) {
-    if (filter === '')
-        return null
+import Country from "./Country"
 
-    let filteredCountries = countries.filter(country => country.name.common.toLowerCase().includes(filter.toLowerCase()))
-
-    if (filteredCountries.length > 10)
-        return <div>Too many matches, specify another filter</div>
-    
-    else if (filteredCountries.length > 1)
-        return <div>
-            {
-                filteredCountries.map(country => <div key={country.cca2}>{country.name.common}</div>) 
-            }
-        </div>
-    else if (filteredCountries.length === 1)
-    {
-        let country = filteredCountries[0]
-        let languages = Object.values(country.languages || {}) 
-        return <div>
-            <h1>{country.name.common}</h1>
-            <div>Capital {country.capital}</div>
-            <div>Area {country.area}</div>
-
-            <h2>Languages</h2>
-            <ul>
-                {
-                    languages.map((language, i) => <li key={i}>{language}</li>)
-                }
-            </ul>
-            <img src={country.flags.svg} alt={country.flags.alt} height='200px'/>
-        </div>
-    }
+function Message ({countries}) {
+    let length = countries.length
+    if (length === 0)
+        return <div>No countries found</div>
+    else if (length === 1)
+        return <div><Country key={countries[0].cca2} country={countries[0]} /></div>
+    else if (length > 1 && length <= 10)
+        return <div>{countries.map(country => <Country key={country.cca2} country={country} />)}</div>
+    else if (length > 10)
+        return <div>Too many matches, please specify another filter</div>
     else
-        return null
+        return <div>Something went wrong.</div>
 }
 
 export default Message
+
+
+/*
+Final version:
+if (length === 1)
+{
+    <CountryStats />
+    <Weather />
+}
+if (length > 1 && length <= 10)
+{
+    <HideBtn />
+    <CountryStats />
+}
+
+*/

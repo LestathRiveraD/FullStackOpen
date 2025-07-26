@@ -7,6 +7,7 @@ function App() {
     // State
     const [allCountries, setAllCountries] = useState(null) 
     const [filter, setFilter] = useState('')
+    const [list, setList] = useState([])
     const url = "https://studies.cs.helsinki.fi/restcountries/api/all"
 
     // Fetch countries
@@ -21,13 +22,21 @@ function App() {
         return null
 
     // Handlers
-    const handleFilter = event => setFilter(event.target.value.toLowerCase()) 
+    const handleFilter = event => {
+        let newFilter = event.target.value.toLowerCase()
+        setFilter(newFilter)
+        if (newFilter === '')
+            setList([])
+        else
+            setList(allCountries.filter(country => country.name.common.toLowerCase().includes(newFilter)))
+    }
+        
 
     // UI
     return (
         <div>
             find countries <input onChange={handleFilter} />
-            <Message filter={filter} countries={allCountries}/>
+            <Message countries={list}/>
         </div>
     )
 }
