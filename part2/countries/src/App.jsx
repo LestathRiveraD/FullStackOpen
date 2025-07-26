@@ -30,7 +30,6 @@ function App() {
         else
             setList(allCountries.filter(country => country.name.common.toLowerCase().includes(newFilter)))
     }
-        
 
     // UI
     return (
