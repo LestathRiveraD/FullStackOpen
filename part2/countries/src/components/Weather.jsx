@@ -15,7 +15,7 @@ function Weather({ city }) {
         .catch((err) => {
             console.log("Fatal error: ", err)
         })
-    })
+    }, [city])
     
     if (weather === null)
         return null

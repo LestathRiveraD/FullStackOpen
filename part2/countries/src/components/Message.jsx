@@ -25,19 +25,3 @@ function Message ({countries}) {
 }
 
 export default Message
-
-
-/*
-Final version:
-if (length === 1)
-{
-    <CountryStats />
-    <Weather />
-}
-if (length > 1 && length <= 10)
-{
-    <HideBtn />
-    <CountryStats />
-}
-
-*/

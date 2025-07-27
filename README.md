@@ -12,8 +12,8 @@ I am expecting to complete this course by mid-July 2025 or early-August 2025
 As of June 13, 2025:
  - **Part 0 ✅** | Fundamentals of web apps [>](https://github.com/LestathRiveraD/FullStackOpen/tree/main/part0)
  - **Part 1 ✅** | Introduction to React [>](https://github.com/LestathRiveraD/FullStackOpen/tree/main/part1)
- - **Part 2 ⏳** | Communicating with server [>](https://github.com/LestathRiveraD/FullStackOpen/tree/main/part2)
- - Part 3 | Programming a server with NodeJS and Express
+ - **Part 2 ✅** | Communicating with server [>](https://github.com/LestathRiveraD/FullStackOpen/tree/main/part2)
+ - **Part 3 ⏳** | Programming a server with NodeJS and Express
  - Part 4 | Testing Express servers, user administration
  - Part 5 | Testing React apps
  - Part 6 | Advanced state management
