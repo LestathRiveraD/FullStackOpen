@@ -25,6 +25,12 @@ const data = [
     }
 ]
 
+app.get('/info', (req, res) => {
+    let d = new Date()
+    let size = data.length
+    res.send(`Phonebook has info por ${size} people <br><br> ${d}`)
+})
+
 app.get('/api/persons', (req, res) => {
     res.json(data)
 })
