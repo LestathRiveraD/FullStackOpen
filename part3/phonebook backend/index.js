@@ -1,7 +1,10 @@
 const express = require('express')
+var morgan = require('morgan')
+
 const app = express()
 
 app.use(express.json())
+app.use(morgan('tiny'))
 
 var data = [
     { 
@@ -58,15 +61,12 @@ app.post('/api/persons/', (req, res) => {
 
     if(JSON.stringify(Object.keys(newEntry)) !== JSON.stringify(['name', 'number']))
     {
-      console.log("{ error: 'invalid request format' }")      
-      console.log(Object.keys(newEntry))      
       res.status(400).end()
       return
     }
 
     if(data.find(entry => newEntry.name === entry.name))
     {
-      console.log("{ error: 'name must be unique' }")
       res.status(400).end()
       return
     }
@@ -75,12 +75,9 @@ app.post('/api/persons/', (req, res) => {
 
     if(data.find(entry => newEntry.id === entry.id))
     {
-      console.log("{ error: 'Unexpected error. Please try again.' }")
       res.status(422).end()
       return
     }
-
-    console.log("POST ", newEntry)
     data.push(newEntry)
     res.status(204).end()
 })
