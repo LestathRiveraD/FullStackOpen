@@ -7,7 +7,7 @@ According to Fullstack Open's website:
 
 ## Completion
 
-I am expecting to complete this course by mid-July 2025 or early-August 2025
+I am expecting to complete this course before the end of 2025.
 
 As of June 13, 2025:
  - **Part 0 ✅** | Fundamentals of web apps [>](https://github.com/LestathRiveraD/FullStackOpen/tree/main/part0)
@@ -26,3 +26,6 @@ As of June 13, 2025:
  - Part 13 | Using relational databases
 
 
+## Additionals
+
+Exercise 3.10: https://phonebookbackend-9ajs.onrender.com/api/persons
