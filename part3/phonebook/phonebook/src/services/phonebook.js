@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3001/api/persons/'
+const url = 'https://phonebookbackend-9ajs.onrender.com/api/persons'
 
-const getAll = () => axios.get(url).then(res => res.data)
+const getAll = () => axios.get(url).then(res => {
+        console.log("Hello?")
+        return res.data
+    })
 
 const addEntry = (newObject) => {
     const request = axios.post(url, newObject)
